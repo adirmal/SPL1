@@ -59,12 +59,14 @@ void Playlist::remove_track(const std::string& title) {
             head = current->next;
         }
         
-        delete current->track;
+        if (current->track)
+            delete current->track;
         delete current;
         track_count--;
         std::cout << "Removed '" << title << "' from playlist" << std::endl;
 
-    } else {
+    } 
+    else {
         std::cout << "Track '" << title << "' not found in playlist" << std::endl;
     }
 }
