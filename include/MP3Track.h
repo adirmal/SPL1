@@ -53,8 +53,12 @@ public:
     PointerWrapper<AudioTrack> clone() const override;
 
     // Getters
-    int get_bitrate() const { return bitrate; }
-    bool has_tags() const { return has_id3_tags; }
+    int get_bitrate() const { 
+        return bitrate;
+    }
+    bool has_tags() const { 
+        return has_id3_tags; 
+    }
 };
 
 #endif // MP3TRACK_H
