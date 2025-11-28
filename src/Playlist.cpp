@@ -8,7 +8,7 @@ Playlist::Playlist(const std::string& name)
 }
 // TODO: Fix memory leaks!
 // Students must fix this in Phase 1
-Playlist::~Playlist() {
+Playlist::~Playlist() { //destructor 
     //#ifdef DEBUG
     PlaylistNode* curr = head;
     while (curr != nullptr) {
@@ -21,6 +21,65 @@ Playlist::~Playlist() {
     std::cout << "Destroying playlist: " << playlist_name << std::endl;
     //#endif
 }
+
+/*
+//Rule of Three implementation (added Copy Constructor and Copy Assignment Operator)
+*/
+
+//--------------------RULE OF THREE------------------
+/*
+Playlist::Playlist(const Playlist& other) : 
+head(nullptr), playlist_name(other.get_name()), track_count(0) //Member INIT List
+{
+    PlaylistNode* curr = other.head;
+    PlaylistNode* tail = nullptr;
+    while (curr != nullptr)
+    {
+        
+        AudioTrack* trackCopy = new AudioTrack(*curr->track);
+        PlaylistNode* newNode = new PlaylistNode(trackCopy);
+        if (head == nullptr)
+            head = tail = newNode;
+        else {
+            tail->next = newNode;
+            tail = newNode;
+        }
+        curr = curr->next;
+        track_count++;
+    }
+}
+
+Playlist& Playlist::operator=(const Playlist& other) 
+{
+    if (this == &other)
+        return *this;
+    while (head != nullptr)
+    {
+        PlaylistNode* tmp = head;
+        head = head->next;
+        delete tmp;
+    }
+    head = nullptr;
+    PlaylistNode* tail = nullptr;
+    PlaylistNode* curr = other.head;
+    while (curr != nullptr)
+    {
+        PlaylistNode* newNode = new PlaylistNode(curr->track);
+        if (head == nullptr) {
+            head = tail = newNode;
+        } 
+        else {
+            tail->next = newNode;
+            tail = newNode;
+        }
+        curr = curr->next;
+    }
+    return *this;
+}
+*/
+//------------------END RULE OF THREE------------------------
+
+
 
 void Playlist::add_track(AudioTrack* track) {
     if (!track) {
