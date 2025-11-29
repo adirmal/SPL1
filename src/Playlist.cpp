@@ -26,58 +26,26 @@ Playlist::~Playlist() { //destructor
 //Rule of Three implementation (added Copy Constructor and Copy Assignment Operator)
 */
 
-//--------------------RULE OF THREE------------------
-/*
+//--------------------RULE OF THREE SHALLOW COPY ------------------
+//The reason for a shaloow copy is because audio track is abstract and we cannot create a new copy
 Playlist::Playlist(const Playlist& other) : 
-head(nullptr), playlist_name(other.get_name()), track_count(0) //Member INIT List
+head(other.head), playlist_name(other.playlist_name), track_count(other.track_count) //Member INIT List
 {
-    PlaylistNode* curr = other.head;
-    PlaylistNode* tail = nullptr;
-    while (curr != nullptr)
-    {
-        
-        AudioTrack* trackCopy = new AudioTrack(*curr->track);
-        PlaylistNode* newNode = new PlaylistNode(trackCopy);
-        if (head == nullptr)
-            head = tail = newNode;
-        else {
-            tail->next = newNode;
-            tail = newNode;
-        }
-        curr = curr->next;
-        track_count++;
-    }
+   std::cout << "Called for a shallow copy of" << other.get_name() << std::endl;
 }
 
 Playlist& Playlist::operator=(const Playlist& other) 
 {
     if (this == &other)
         return *this;
-    while (head != nullptr)
-    {
-        PlaylistNode* tmp = head;
-        head = head->next;
-        delete tmp;
-    }
-    head = nullptr;
-    PlaylistNode* tail = nullptr;
-    PlaylistNode* curr = other.head;
-    while (curr != nullptr)
-    {
-        PlaylistNode* newNode = new PlaylistNode(curr->track);
-        if (head == nullptr) {
-            head = tail = newNode;
-        } 
-        else {
-            tail->next = newNode;
-            tail = newNode;
-        }
-        curr = curr->next;
-    }
+   
+    head = other.head;
+    playlist_name = other.playlist_name;
+    track_count = other.track_count;
     return *this;
 }
-*/
 //------------------END RULE OF THREE------------------------
+
 
 
 
