@@ -99,7 +99,7 @@ public:
 
     //ADDED FUNCION
     //FindSlot that returns pointer for DJControllerService getTrackFromCache use. 
-    AudioTrack* LRUCache::findSlotPTR(const std::string& track_id) const;
+    AudioTrack* findSlotPTR(const std::string& track_id) const;
 
 
 private:

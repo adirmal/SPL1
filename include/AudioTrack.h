@@ -115,4 +115,12 @@ public:
     std::vector<std::string> get_artists() const {
          return artists; 
     }
+
+    /*
+    //ADDED: added set bpm for sync_bpm fun in MixingEngineService.
+    */
+   void set_bpm(int bpm_set) {
+        bpm = bpm_set;
+   }
+
 };
