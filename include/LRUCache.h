@@ -96,6 +96,12 @@ public:
      * This method should be used only once.
      */
     void set_capacity(size_t capacity);
+
+    //ADDED FUNCION
+    //FindSlot that returns pointer for DJControllerService getTrackFromCache use. 
+    AudioTrack* LRUCache::findSlotPTR(const std::string& track_id) const;
+
+
 private:
     /**
      * @brief Find slot containing specific track
@@ -115,4 +121,5 @@ private:
      * @return Slot index, or max_size if cache is full
      */
     size_t findEmptySlot() const;
+
 };

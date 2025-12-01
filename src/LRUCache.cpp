@@ -25,24 +25,21 @@ bool LRUCache::put(PointerWrapper<AudioTrack> track) {
     //IF 1: Checks if track is allready in slots. if so updates time stamp.
     //IF 1 == "HIT"
     if (find != max_size) { 
-        slots[find].access(access_counter);
-        access_counter++;
+        slots[find].access(++access_counter);
         return false;
     }
     //Everything from this is "MISS"
     size_t empty_slot = findEmptySlot();
     //IF 2: Checks if there is an empty slot that is ready to be filled with track. if so track is entered to empty slot and time stamp is updated
     if (empty_slot != max_size) {
-        slots[empty_slot].store(std::move(track) ,access_counter);
-        access_counter++;
+        slots[empty_slot].store(std::move(track) ,++access_counter);    
         return false;
     }
     //IF 3 : Commits eviction because it is needed (if we arrived to this point), than finds the empty slot after eviction and does the same as IF 2 but with res = true.
     bool evict = evictLRU();
     empty_slot = findEmptySlot();
     if (empty_slot != max_size) {
-        slots[empty_slot].store(std::move(track) ,access_counter);
-        access_counter++;
+        slots[empty_slot].store(std::move(track) ,++access_counter);       
     }
     return evict;
 }
@@ -83,7 +80,6 @@ size_t LRUCache::findSlot(const std::string& track_id) const {
         if (slots[i].isOccupied() && slots[i].getTrack()->get_title() == track_id) return i;
     }
     return max_size;
-
 }
 
 /**
@@ -127,4 +123,15 @@ void LRUCache::set_capacity(size_t capacity){
     max_size = capacity;
     //update the slots vector
     slots.resize(capacity);
+}
+
+//ADDED FUNCION
+//FindSlot that returns pointer for DJControllerService getTrackFromCache use. 
+//Returns a PTR wihtout doing accsessCount++
+AudioTrack* LRUCache::findSlotPTR(const std::string& track_id) const{
+    for (size_t i = 0; i < max_size; ++i) {
+        if (slots[i].isOccupied() && slots[i].getTrack()->get_title() == track_id) 
+            return (slots[i]).getTrack();
+    }
+    return nullptr;
 }
