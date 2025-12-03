@@ -133,14 +133,12 @@ void Playlist::display() const {
 
 AudioTrack* Playlist::find_track(const std::string& title) const {
     PlaylistNode* current = head;
-
     while (current) {
         if (current->track->get_title() == title) {
             return current->track;
         }
         current = current->next;
     }
-
     return nullptr;
 }
 
