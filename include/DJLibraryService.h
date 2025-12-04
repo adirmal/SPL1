@@ -14,7 +14,7 @@
 class DJLibraryService {
 public:
     DJLibraryService(const Playlist& playlist);
-    DJLibraryService() = default;
+    DJLibraryService() : playlist(), library(){};
 
     /*
     //NOTE: added a destructor according to Memory Management Requirements
