@@ -82,6 +82,7 @@ int DJSession::load_track_to_controller(const std::string& track_name) {
     else {
         std::cout << "[System] Loading track '" << track_name << "' to controller..." << std::endl;
         int cache_res = controller_service.loadTrackToCache(*track);
+        controller_service.displayCacheStatus();
         if (cache_res == 1)
             stats.cache_hits++;
         else if (cache_res == 0)
@@ -110,6 +111,7 @@ bool DJSession::load_track_to_mixer_deck(const std::string& track_title) {
         return false;
     }
     int deck = mixing_service.loadTrackToDeck(*track);
+    mixing_service.displayDeckStatus();
     if (deck == 0) {
         stats.deck_loads_a++;
         stats.transitions++;
@@ -166,7 +168,7 @@ void DJSession::simulate_dj_performance() {
             }
 
             for (const std::string& track_title : track_titles) {
-                std::cout << "\n–- Processing: " << track_title << "---" <<std::endl;
+                std::cout << "\n--- Processing: " << track_title << " ---" <<std::endl;
                 stats.tracks_processed++;
                 // Cache Loading Phase
                 load_track_to_controller(track_title);
@@ -178,14 +180,14 @@ void DJSession::simulate_dj_performance() {
 
             }
             print_session_summary();
-            stats.tracks_processed = 0;
-            stats.cache_hits = 0;
-            stats.cache_misses = 0;
-            stats.cache_evictions = 0;
-            stats.deck_loads_a = 0;
-            stats.deck_loads_b = 0;
-            stats.transitions = 0;
-            stats.errors = 0;
+            // stats.tracks_processed = 0;
+            // stats.cache_hits = 0;
+            // stats.cache_misses = 0;
+            // stats.cache_evictions = 0;
+            // stats.deck_loads_a = 0;
+            // stats.deck_loads_b = 0;
+            // stats.transitions = 0;
+            // stats.errors = 0;
         }
     }
     //interactive mode

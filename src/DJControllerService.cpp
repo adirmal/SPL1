@@ -11,8 +11,7 @@ DJControllerService::DJControllerService(size_t cache_size)
  */
 int DJControllerService::loadTrackToCache(AudioTrack& track) {
     // Your implementation here 
-    if (cache.contains(track.get_title())) {//HIT, adds 1 to the accsess count and return 1
-        cache.get(track.get_title());
+    if (cache.get(track.get_title()) != nullptr) {//HIT, adds 1 to the accsess count and return 1
         return 1;
     }
     //MISS - need to create a clone.
@@ -49,5 +48,5 @@ void DJControllerService::displayCacheStatus() const {
  * TODO: Implement getTrackFromCache method
  */
 AudioTrack* DJControllerService::getTrackFromCache(const std::string& track_title) {
-    return cache.findSlotPTR(track_title); //If this function needs to do accsess_count++ than this needs to change to a simple cahce.get()
+    return cache.get(track_title); //If this function needs to do accsess_count++ than this needs to change to a simple cahce.get()
 }

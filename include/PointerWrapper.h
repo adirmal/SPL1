@@ -38,7 +38,10 @@ public:
      * Is the default destructor sufficient here?
      */
     ~PointerWrapper() {
-        delete ptr; //this means that ptr can not be an array / be somehow in the stack (and not allocated in the heap)
+        if(ptr){
+            delete ptr; //this means that ptr can not be an array / be somehow in the stack (and not allocated in the heap)
+            ptr = nullptr;
+        }
     }
 
     // ========== COPY OPERATIONS (DELETED) ==========
@@ -62,7 +65,7 @@ public:
      * HINT: How should ownership transfer from one wrapper to another?
      * What should happen to the source wrapper after the move?
      */
-    PointerWrapper(PointerWrapper&& other) noexcept {
+    PointerWrapper(PointerWrapper&& other) noexcept:ptr(nullptr) {
         ptr = other.ptr;
         other.ptr = nullptr;
     }
@@ -137,7 +140,8 @@ public:
      * What should happen to the old pointer?
      */
     void reset(T* new_ptr = nullptr) {//Cleans up, Taked Ownership
-        delete ptr;
+        if(ptr)
+            delete ptr;
         ptr = new_ptr;
     }
 
