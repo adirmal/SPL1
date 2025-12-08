@@ -202,15 +202,15 @@ void DJSession::simulate_dj_performance() {
                 break;
             }
             
-            // (c) For Each Selected Playlist
+            //For Each Selected Playlist
             
-            // i. Call load_playlist
+            // Call load_playlist
             if (!load_playlist(playlist_name)) {
                 std::cout << "[ERROR]: " << playlist_name << " Failed to load playlist" << std::endl;
                 continue; // prompt again in interactive mode
             }
             
-            // iii. Track Processing Loop
+            // Track Processing Loop
             for (const std::string& track_title : track_titles) {
                 // Log processing
                 std::cout << "\n--- Processing: " << track_title << " ---" << std::endl;
@@ -226,16 +226,16 @@ void DJSession::simulate_dj_performance() {
                 bool deck_success = load_track_to_mixer_deck(track_title);
                 // Statistics already updated inside load_track_to_mixer_deck
                 
-                // If load fails, continue to next track
+                // if load fails, continue to next track
                 if (!deck_success) {
                     continue;
                 }
             }
             
-            // iv. After all tracks processed
+            
             print_session_summary();
             
-            // v. Reset statistics for next playlist
+            //reset statistics for next playlist
             stats.tracks_processed = 0;
             stats.cache_hits = 0;
             stats.cache_misses = 0;
@@ -247,7 +247,7 @@ void DJSession::simulate_dj_performance() {
         }
     }
     
-    // (e) After loop completion
+    
     std::cout << "Session cancelled by user or all playlists played." << std::endl;
 }
 
